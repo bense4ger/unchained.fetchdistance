@@ -1,9 +1,11 @@
 package api
 
 import (
+	"context"
 	"fmt"
 
 	"googlemaps.github.io/maps"
+	"unchained.fetchdistance/model"
 )
 
 // GMapsClient wraps the Google Maps API Client
@@ -21,6 +23,43 @@ func NewGMapsClient(apiKey string) (*GMapsClient, error) {
 	return &GMapsClient{
 		c: c,
 	}, nil
+}
+
+// GetDistance takes an origin and destination and gets the distance from Google API
+func (c *GMapsClient) GetDistance(ctx context.Context, origin, destination *model.Location) (*model.Distance, error) {
+	o, err := origin.Get()
+	if err != nil {
+		return nil, fmt.Errorf("GetDistance: %s", err.Error())
+	}
+
+	d, err := origin.Get()
+	if err != nil {
+		return nil, fmt.Errorf("GetDistance: %s", err.Error())
+	}
+
+	req := &maps.DistanceMatrixRequest{
+		Origins:      []string{o},
+		Destinations: []string{d},
+		Mode:         maps.TravelModeWalking,
+		Units:        maps.UnitsImperial,
+	}
+
+	resp, err := c.c.DistanceMatrix(ctx, req)
+	if err != nil {
+		return nil, fmt.Errorf("GetDistance: %s", err.Error())
+	}
+
+	if len(resp.Rows) == 0 {
+		return nil, fmt.Errorf("GetDistance: No DistanceMatrixRows")
+	}
+
+	dist := &model.Distance{
+		ID:       destination.ID,
+		Duration: resp.Rows[0].Elements[0].Duration,
+		Length:   resp.Rows[0].Elements[0].Distance.HumanReadable,
+	}
+
+	return dist, nil
 }
 
 // Must ensures that a GMapsClient has been created correctly

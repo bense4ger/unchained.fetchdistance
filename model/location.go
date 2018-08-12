@@ -6,6 +6,7 @@ import (
 
 // Location encapsulates venue location details
 type Location struct {
+	ID      string
 	Address string
 	LatLong string
 }
