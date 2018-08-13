@@ -29,7 +29,7 @@ func main() {
 	case "prod":
 		lambda.Start(handleRequest)
 	case "dev":
-		debug.RunLocal(*origin, *dest, *apiKey)
+		debug.RunLocal(*origin, *dest, apiKey)
 	}
 }
 
