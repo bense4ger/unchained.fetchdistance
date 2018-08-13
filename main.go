@@ -29,6 +29,9 @@ func main() {
 	case "prod":
 		lambda.Start(handleRequest)
 	case "dev":
+		if *origin == "" || *dest == "" {
+			log.Fatal("Origin and destination must not be empty")
+		}
 		debug.RunLocal(*origin, *dest, apiKey)
 	}
 }
