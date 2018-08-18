@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
+	"bense4ger/unchained.fetchdistance/model"
 	"googlemaps.github.io/maps"
-	"unchained.fetchdistance/model"
 )
 
 // GMapsClient wraps the Google Maps API Client

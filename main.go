@@ -10,9 +10,9 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"unchained.fetchdistance/api"
-	"unchained.fetchdistance/debug"
-	"unchained.fetchdistance/model"
+	"bense4ger/unchained.fetchdistance/api"
+	"bense4ger/unchained.fetchdistance/debug"
+	"bense4ger/unchained.fetchdistance/model"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"

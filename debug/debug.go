@@ -6,8 +6,8 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	"unchained.fetchdistance/api"
-	"unchained.fetchdistance/model"
+	"bense4ger/unchained.fetchdistance/api"
+	"bense4ger/unchained.fetchdistance/model"
 )
 
 // RunLocal allows for local debugging
