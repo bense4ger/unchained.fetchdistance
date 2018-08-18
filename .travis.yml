@@ -3,14 +3,25 @@ go_import_path: bense4ger/unchained.fetchdistance
 go:
 - '1.10'
 before_install:
-  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-  - chmod +x $GOPATH/bin/dep
-  - mkdir dist
+- curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+- chmod +x $GOPATH/bin/dep
+- mkdir dist
 install:
-  - dep ensure
+- dep ensure
 script:
-  - go test -race ./...
-  - go build -o fetchdistance
-after_success:
+- go test -race ./...
+- go build -o fetchdistance
+after_success: 
 deploy:
-after_deploy:
+  provider: s3
+  access_key_id: AKIAI5ZYDRB6YSG23SHQ
+  secret_access_key:
+    secure: leeSEesC/Sx2Ma+Xj3HphZF6AzuUVb5MM7IGgGN/skkhQboi6BRxnqCzXsk2UvT7GgytUjfLPSvCpoUHYAoOsCTgrxLZXDfSbhC6YOtoTZ0VEi3oSqC5bVEUxAGIfWXA/fHch7hFxcSKqDgpHaDqGOaN57OPT+ZbAqk3gJV3gC407ScKI85xcHGl7FazPysPVKs9cZ56ciJTcw7RZmoaZCIOzDNwmwHCR1/Fy/AQ2wU/jXwD3WXg5V5ZqkDEtgARxcU1tb/TwQYbDt4XAIrvhC86svkvU+b3KmaEiPbW26ZD6QnsixpDjPKzfQy4P1Y/lgWnGVQHoINEAzSre6+BUdKszlL5B6lnGr9ERBYKdb3FzTPQueEFk0EcPeKvSnqRWGAshV8p0xOz7KdX2/KFY3HdlsuuBSycD2WUi1j2K+tI2SpFJ7xd9zfsKEZjz0N0QzDKVGf7ph4Le2CgQI7kzQQ4fgWnuazR7B0pcPrbvO8kLKpzeFuGuz83TEcpyBWIrPiFlgmtGUrF+ABI6Wkhq4cYxTV3WSNChdn3fyRLZ4O366wEgBLJh0vFUBDGkx1PIbado3HwoIygh72gbQcwW1lBXPoVDj6g+VKFh5Rt2g5rs90Gwpn0ysgubrvSvR2QtYEDvOhsbHKcp1M+yvODzsG+1QggF8E4Tcq1RiQCliU=
+  bucket: code_drops
+  acl: private
+  on:
+    repo: bense4ger/unchained.fetchdistance
+    branches:
+      only:
+        - master
+after_deploy: 
