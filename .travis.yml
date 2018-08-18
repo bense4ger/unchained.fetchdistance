@@ -1,17 +1,22 @@
 language: go
 go_import_path: bense4ger/unchained.fetchdistance
 go:
-- '1.10'
+  - '1.10'
 before_install:
-- curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-- chmod +x $GOPATH/bin/dep
-- mkdir dist
+  - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+  - unzip awscli-bundle.zip
+  - ./awscli-bundle/install -b ~/bin/aws
+
+  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+  - chmod +x $GOPATH/bin/dep
+  - mkdir dist
 install:
-- dep ensure
+  - dep ensure
 script:
-- go test -race ./...
-- go build -o fetchdistance
+  - go test -race ./...
+  - go build -o fetchdistance
 after_success: 
+  - zip dist/fetchdistance.zip fetchdistance
 deploy:
   provider: s3
   access_key_id: AKIAI5ZYDRB6YSG23SHQ
@@ -25,3 +30,4 @@ deploy:
       only:
         - master
 after_deploy: 
+  - aws lambda update-function-code --function-name unchained-fetch-distance --s3-bucket code-drops --s3-key fetchdistance.zip
