@@ -3,6 +3,7 @@ package api
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"googlemaps.github.io/maps"
 	"unchained.fetchdistance/model"
@@ -32,7 +33,7 @@ func (c *GMapsClient) GetDistance(ctx context.Context, origin, destination *mode
 		return nil, fmt.Errorf("GetDistance: %s", err.Error())
 	}
 
-	d, err := origin.Get()
+	d, err := destination.Get()
 	if err != nil {
 		return nil, fmt.Errorf("GetDistance: %s", err.Error())
 	}
@@ -55,7 +56,7 @@ func (c *GMapsClient) GetDistance(ctx context.Context, origin, destination *mode
 
 	dist := &model.Distance{
 		ID:       destination.ID,
-		Duration: resp.Rows[0].Elements[0].Duration,
+		Duration: resp.Rows[0].Elements[0].Duration / time.Minute,
 		Length:   resp.Rows[0].Elements[0].Distance.HumanReadable,
 	}
 
