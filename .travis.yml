@@ -1,0 +1,15 @@
+language: go
+go:
+- '1.10'
+before_install:
+  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+  - chmod +x $GOPATH/bin/dep
+  - mkdir dist
+install:
+  - dep ensure
+script:
+  - go test -race ./...
+  - go build -o fetchdistance
+after_success:
+deploy:
+after_deploy:
