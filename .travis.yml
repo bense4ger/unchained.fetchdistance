@@ -1,4 +1,5 @@
 language: go
+go_import_path: bense4ger/unchained.fetchdistance
 go:
 - '1.10'
 before_install:
