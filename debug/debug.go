@@ -2,6 +2,7 @@ package debug
 
 import (
 	"context"
+	"fmt"
 
 	log "github.com/sirupsen/logrus"
 
@@ -11,6 +12,8 @@ import (
 
 // RunLocal allows for local debugging
 func RunLocal(origin, dest, apiKey string) {
+	fmt.Println("Running Locally")
+
 	o := &model.Location{
 		ID:      "origin",
 		LatLong: origin,
@@ -18,7 +21,7 @@ func RunLocal(origin, dest, apiKey string) {
 
 	d := &model.Location{
 		ID:      "destination",
-		Address: dest,
+		LatLong: dest,
 	}
 
 	c := api.Must(api.NewGMapsClient(apiKey))
