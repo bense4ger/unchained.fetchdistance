@@ -23,6 +23,7 @@ deploy:
   secret_access_key: ${AWS_SECRET_ACCESS_KEY}
   bucket: "code_drops"
   local_dir: dist
+  skip_cleanup: true
   acl: private
   on:
     repo: bense4ger/unchained.fetchdistance
