@@ -21,7 +21,7 @@ deploy:
   provider: s3
   access_key_id: ${AWS_ACCESS_KEY_ID}
   secret_access_key: ${AWS_SECRET_ACCESS_KEY}
-  bucket: "code_drops"
+  bucket: ${S3_BUCKET}
   local_dir: dist
   skip_cleanup: true
   acl: private
@@ -31,8 +31,9 @@ deploy:
       only:
       - master
 after_deploy:
-- aws lambda update-function-code --function-name unchained-fetch-distance --s3-bucket code-drops --s3-key fetchdistance.zip
+- aws lambda update-function-code --function-name unchained-fetch-distance --s3-bucket ${S3_BUCKET} --s3-key fetchdistance.zip
 env:
   global:
   - secure: b2tT92cCR9zRJLo8pt473uIxV5JUjTUSqjVpaeigeUvzidOmJa1W8HAj1X6XH73JmxksRYD6Q2RwsdnBJyXGzsp76u19A1r7hYoBq5vRgVOenq+tdomWClC96KbyHLSmFsXV0OFQYuyslX6d4HQRcbV/5sWUybjXcru2+8RU376xHL2Awi6I6RL0VbEpdfWufOQh0RQOn9NLDAuLvchHtbdWpX1zP8ILuNjGqkby1Dme+XOw02+mViNhpvbHnNCvsxLgrkgMPyReS8T41FcY5EktEL5Z2KUvwkhD8ZY5HFon+dbmFiK0WyOMBO+cboN8rNEWvBAjIaexXWsn5MVmXZfrgypHtH4n7cOekIt1jAxbo5+L4bSrjhFgazWJXm2gIA2St8YqWVhj/cS6Sg49hlTR79rvrvfYxvVzNUZ0O/3FMeZ9DEu/NoXwb8/E2CHFo2JyocgWrNeDssyOGLhaUouZqfUILsZzJVRl+moYj9JgObIRf+eAdnJVmC6KcJxVtukK7qee0QxLc8YGyShIsYLHcG0f4vFp9kON4TXDp7XMhYkMWTJBHw8jmqjo+/yjUmuQ7n1g43SqA6qMRLWzz3OD6VAZOnsws6cnJIoU3Fgjzih3dbvqhKCZLf3WRJMgwJJwe3+R+qR5Lsez63GBNNVRWgMM3bLS18ZW9/1hFa8=
   - secure: H2CTGYwWIg/BUQe09u98ZCXv4I2JCpPVjFvBPfhPC+U91MauFJh0CP5yqOkuU/JJk1A0WQKt0bgbUkSdgvm/qCo0KAYBrrNmdsZbNoteuZGus4kPeM/yVzClnTd49uOR7+bL/yOYu82nxrHXJHYkNqAfYlVqhZdkruLyofkQtS1j6tEyvu7/VkyK/Iat3DfY86SkkFj/RY8MyqLNGAmV6WikB2ihtnVutBEZ0jbEmhXeFMik5ATPORoMOp0brgou6sX5S7iwh8TT1hIXlIc3jnECguPX2IvsJ2Tsjgc1RbC4+JYLfhZwIGGTOhllE9GMmxO8QTPYCMibyCkWRkXpisyQauRzBn9s8Yq1+YtYYahRZhcWJo9VcASkS/wmGtjEvJJN4PmBTEFeuPVz8rXjOjBQG62pYEnqZJ0WY3owyNtnjZ+ansM0+nFC9aC8txn76MRzdF6RpbtPX9V+FMIpI1h5qaB3Y6DjPXLy6mV7l+JyMEArNXSTmvsii6jQeUYjfBa6lWLQQCalvbC6VYoOau3XX+dVuOlVGs+igZArovWSK3fnVSOAcmOyK1NM4phm05J36GQxtBE0vsZfpIpJZwydJpp4RithbiUaXqVxEkmESIZr2ZoVq+4J+VB41ozj2OOVXue2qxb2f0Y+UCX7c8MrOMOcajA+WpEB8rZWRcQ=
+  - S3_BUCKET=unchained.codedrops
